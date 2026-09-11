@@ -17,6 +17,8 @@ import { GuidelinesPage } from './pages/GuidelinesPage';
 import { BoilerplateSpPage } from './pages/BoilerplateSpPage';
 import { SqlComparePage } from './pages/SqlComparePage';
 import { JsonFormatterPage } from './pages/JsonFormatterPage';
+import { BugReportModal } from './components/BugReportModal';
+import { Bug } from 'lucide-react';
 import { useFavorites } from './hooks/useFavorites';
 import { useRecentlyViewed } from './hooks/useRecentlyViewed';
 import { useChecklist } from './hooks/useChecklist';
@@ -48,6 +50,7 @@ export function App() {
 
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isShortcutsOpen, setIsShortcutsOpen] = useState(false);
+  const [isBugReportOpen, setIsBugReportOpen] = useState(false);
   const [isSidebarOpenMobile, setIsSidebarOpenMobile] = useState(false);
 
   // Persistent storage hooks
@@ -226,6 +229,7 @@ export function App() {
           isOpenMobile={isSidebarOpenMobile}
           onCloseMobile={() => setIsSidebarOpenMobile(false)}
           favoritesCount={favorites.length}
+          onOpenBugReport={() => setIsBugReportOpen(true)}
         />
 
         {/* Main Content Area */}
@@ -236,9 +240,18 @@ export function App() {
 
           {/* Minimalist Developer Footer */}
           <footer className="border-t border-emerald-100 dark:border-sql-border py-4 px-6 text-xs text-slate-500 dark:text-slate-400 flex flex-col sm:flex-row items-center justify-between gap-2 bg-white dark:bg-[#090b12] transition-colors">
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-2 flex-wrap gap-y-1">
               <span className="font-semibold text-slate-700 dark:text-slate-300">Company</span>
-              <span>— Enterprise SQL Developer Platform (All Teams)</span>
+              <span className="text-slate-500 dark:text-slate-400">— Enterprise SQL Platform</span>
+              <span className="text-slate-300 dark:text-slate-700 hidden sm:inline">•</span>
+              <button
+                onClick={() => setIsBugReportOpen(true)}
+                className="inline-flex items-center space-x-1 text-emerald-700 dark:text-emerald-400 hover:text-emerald-800 dark:hover:text-emerald-300 font-medium transition-colors"
+                title="Bug Report / Developer: Mubasshir Khan"
+              >
+                <Bug className="w-3.5 h-3.5 text-amber-500" />
+                <span>Bug Report: <strong className="font-semibold underline decoration-emerald-500/40">Mubasshir Khan</strong></span>
+              </button>
             </div>
             <div className="flex items-center space-x-3 font-mono text-[11px] flex-wrap justify-center">
               <button
@@ -290,6 +303,12 @@ export function App() {
       <KeyboardShortcutsModal
         isOpen={isShortcutsOpen}
         onClose={() => setIsShortcutsOpen(false)}
+        onOpenBugReport={() => setIsBugReportOpen(true)}
+      />
+
+      <BugReportModal
+        isOpen={isBugReportOpen}
+        onClose={() => setIsBugReportOpen(false)}
       />
     </div>
   );

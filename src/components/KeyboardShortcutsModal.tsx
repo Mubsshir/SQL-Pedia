@@ -4,11 +4,13 @@ import { X, Keyboard } from 'lucide-react';
 interface KeyboardShortcutsModalProps {
   isOpen: boolean;
   onClose: () => void;
+  onOpenBugReport?: () => void;
 }
 
 export const KeyboardShortcutsModal: React.FC<KeyboardShortcutsModalProps> = ({
   isOpen,
   onClose,
+  onOpenBugReport,
 }) => {
   if (!isOpen) return null;
 
@@ -57,13 +59,29 @@ export const KeyboardShortcutsModal: React.FC<KeyboardShortcutsModalProps> = ({
           ))}
         </div>
 
-        <div className="pt-4 border-t border-emerald-100 dark:border-sql-border text-center">
-          <button
-            onClick={onClose}
-            className="px-4 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold transition-colors shadow-xs"
-          >
-            Got it
-          </button>
+        <div className="pt-4 border-t border-emerald-100 dark:border-sql-border flex items-center justify-between">
+          <div className="text-[11px] text-slate-500 dark:text-slate-400">
+            Developer: <strong className="text-slate-800 dark:text-slate-200 font-medium">Mubasshir Khan</strong>
+          </div>
+          <div className="flex items-center space-x-2">
+            {onOpenBugReport && (
+              <button
+                onClick={() => {
+                  onClose();
+                  onOpenBugReport();
+                }}
+                className="text-xs text-emerald-700 dark:text-emerald-400 hover:underline font-medium"
+              >
+                Report Bug
+              </button>
+            )}
+            <button
+              onClick={onClose}
+              className="px-3.5 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold transition-colors shadow-xs"
+            >
+              Got it
+            </button>
+          </div>
         </div>
       </div>
     </div>

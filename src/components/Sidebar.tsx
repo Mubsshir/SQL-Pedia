@@ -33,6 +33,7 @@ interface SidebarProps {
   isOpenMobile: boolean;
   onCloseMobile: () => void;
   favoritesCount: number;
+  onOpenBugReport?: () => void;
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({
@@ -42,6 +43,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
   isOpenMobile,
   onCloseMobile,
   favoritesCount,
+  onOpenBugReport,
 }) => {
   // Map category icons to Lucide components
   const getCategoryIcon = (iconName: string) => {
@@ -357,9 +359,25 @@ export const Sidebar: React.FC<SidebarProps> = ({
         </div>
 
         {/* Sidebar Footer */}
-        <div className="p-3 border-t border-emerald-100 dark:border-sql-border text-xs text-slate-500 dark:text-slate-400 flex items-center justify-between bg-slate-50/60 dark:bg-transparent">
-          <span className="font-medium text-slate-700 dark:text-slate-300">Company Enterprise</span>
-          <span className="text-[10px] font-mono text-emerald-700 dark:text-emerald-400 font-bold">All Teams</span>
+        <div className="p-3 border-t border-emerald-100 dark:border-sql-border text-xs text-slate-500 dark:text-slate-400 space-y-2 bg-slate-50/60 dark:bg-transparent">
+          <div className="flex items-center justify-between">
+            <span className="font-medium text-slate-700 dark:text-slate-300">Company Enterprise</span>
+            <span className="text-[10px] font-mono text-emerald-700 dark:text-emerald-400 font-bold">All Teams</span>
+          </div>
+
+          {onOpenBugReport && (
+            <button
+              onClick={onOpenBugReport}
+              className="w-full flex items-center justify-between pt-1.5 border-t border-slate-200/60 dark:border-sql-border/40 text-[11px] text-slate-500 dark:text-slate-400 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors group text-left"
+              title="Report bug / Developer Info: Mubasshir Khan"
+            >
+              <div className="flex items-center space-x-1.5">
+                <Bug className="w-3.5 h-3.5 text-amber-500 group-hover:text-emerald-600 transition-colors" />
+                <span>Bug Report:</span>
+              </div>
+              <span className="font-semibold text-slate-700 dark:text-slate-300 group-hover:underline">Mubasshir Khan</span>
+            </button>
+          )}
         </div>
       </aside>
     </>
