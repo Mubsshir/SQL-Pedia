@@ -32,7 +32,7 @@ export const BugReportModal: React.FC<BugReportModalProps> = ({
 
   const developerName = 'Mubasshir Khan';
   const developerEmail = 'mubasshir.khan@company.com';
-  const githubRepoIssues = 'https://github.com/Mubsshir/sqltoolkit/issues';
+  const githubRepoIssues = 'https://github.com/Mubsshir/SQL-Pedia/issues';
 
   const bugReportTemplate = `[SQL Toolkit Bug Report]
 Developer / Maintainer: ${developerName}
