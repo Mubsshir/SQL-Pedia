@@ -59,6 +59,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
     { id: 'find-procedure-by-text', title: 'Debug Stored Proc', icon: '🐞', desc: 'Search modules, parameters & errors', category: 'Stored Procedures' },
     { id: 'find-agent-job-by-step-name', title: 'SQL Agent Jobs', icon: '⏱️', desc: 'Search jobs by procedure & history', category: 'SQL Server Agent' },
     { id: 'find-tables-with-column', title: 'Find Object / Col', icon: '🔎', desc: 'Locate columns across all schemas', category: 'Developer Utilities' },
+    { id: 'generate-data-insert-script', title: 'Data INSERT Gen', icon: '📝', desc: 'Copy master data (<1000 rows)', category: 'Developer Utilities' },
     { id: 'tips', title: 'SQL Tips', icon: '💡', desc: 'SARGability, NOLOCK & anti-patterns', isView: true },
   ];
 

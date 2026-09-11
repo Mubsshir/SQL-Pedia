@@ -316,7 +316,92 @@ WHERE t.name = @TableName
   AND c.is_identity = 0
   AND c.is_computed = 0
 GROUP BY t.name;`,
-    relatedQueryIds: ['find-tables-with-column']
+    relatedQueryIds: ['find-tables-with-column', 'generate-data-insert-script']
+  },
+  {
+    id: 'generate-data-insert-script',
+    title: 'Generate Data INSERT Scripts for Master Tables (< 1000 Rows)',
+    category: 'Developer Utilities',
+    subcategory: 'Script Generation',
+    description: 'Dynamically generates ready-to-run INSERT INTO [Table] ([Cols]) VALUES (...) statements containing actual row data for master tables or lookup tables (< 1000 rows). Automatically excludes identity columns, formats datetimes, handles NULLs, and escapes single quotes.',
+    difficulty: 'Intermediate',
+    risk: 'safe',
+    sqlServerVersion: '2016+',
+    tags: ['generate-insert', 'data-scripting', 'master-table', 'dynamic-sql', 'export-data', 'sys.all_columns', 'insert-scripts'],
+    featured: true,
+    whenToUse: 'When needing to quickly copy or deploy master table configuration data, lookup entries, or environment-specific patches (less than 1,000 rows) without needing full BCP or SSIS exports.',
+    parameters: [
+      {
+        name: 'DatabaseName',
+        placeholder: 'meterreplacement',
+        description: "Target table's database name",
+        defaultValue: 'meterreplacement'
+      },
+      {
+        name: 'TABLE_NAME',
+        placeholder: "'m_complaint_sub_actionmaster'",
+        description: 'Master table name to export data from',
+        defaultValue: "'m_complaint_sub_actionmaster'"
+      },
+      {
+        name: 'FILTER_CONDITION',
+        placeholder: "' WHERE [subaction_tblrefid] IN (64)'",
+        description: 'Optional WHERE clause filter condition (or empty string)',
+        defaultValue: "' WHERE [subaction_tblrefid] IN (64)'"
+      }
+    ],
+    sql: `USE meterreplacement--- table's DB name 
+GO
+
+DECLARE @TABLE_NAME VARCHAR(MAX) = 'm_complaint_sub_actionmaster',
+        @FILTER_CONDITION VARCHAR(MAX) = ' WHERE [subaction_tblrefid] IN (64)',
+        @CSV_COLUMN VARCHAR(MAX),
+        @QUOTED_DATA VARCHAR(MAX),
+        @TEXT VARCHAR(MAX)
+
+-- 1. Extract non-identity column names as comma-separated list
+SELECT @CSV_COLUMN=STUFF
+(
+    (
+     SELECT ',['+ NAME +']' FROM sys.all_columns 
+     WHERE OBJECT_ID=OBJECT_ID(@TABLE_NAME) AND 
+     is_identity!=1 FOR XML PATH('')
+    ),1,1,''
+)
+
+-- 2. Build quoted literal value expressions with NULL, datetime & quote escaping
+SELECT @QUOTED_DATA=STUFF
+(
+    (
+     SELECT ' ISNULL(CASE WHEN '+C.name+' IS NOT NULL THEN CONCAT('''''''',REPLACE('+CASE WHEN ty.NAME LIKE '%datetime%' THEN CONCAT('FORMAT(',C.name,',''yyyy-MM-dd hh:mm:ss'')')  ELSE C.name END +','''''''',''''''''''''),'''''''') END,'+'''NULL'''+')+'','''+'+'
+     FROM sys.all_columns C
+     JOIN sys.types ty ON c.user_type_id = ty.user_type_id
+     WHERE OBJECT_ID=OBJECT_ID(@TABLE_NAME) AND 
+     is_identity!=1 FOR XML PATH('')
+    ),1,1,''
+)
+
+-- 3. Construct dynamic query that outputs executable INSERT statements
+SELECT @TEXT='SELECT ''INSERT INTO '+@TABLE_NAME+'('+@CSV_COLUMN+')VALUES('''+'+'+SUBSTRING(@QUOTED_DATA,1,LEN(@QUOTED_DATA)-5)+'+'+''')'''+' Insert_Scripts FROM '+@TABLE_NAME + @FILTER_CONDITION
+
+-- 4. Print and execute to display generated INSERT statements in SSMS grid
+--SELECT @CSV_COLUMN AS CSV_COLUMN,@QUOTED_DATA AS QUOTED_DATA,@TEXT TEXT
+PRINT @TEXT
+EXECUTE (@TEXT)`,
+    notes: [
+      'Ideal for copying master, configuration, or lookup table data with fewer than 1,000 rows across development, QA, and production environments.',
+      'Automatically handles is_identity != 1 so generated scripts do not attempt to insert into identity columns.',
+      'Quotes and escapes embedded single quotes via REPLACE(...) and casts dates to yyyy-MM-dd hh:mm:ss format.',
+      'Outputs executable INSERT INTO ... VALUES (...) statements in the SSMS results grid (one row per statement).',
+      'For large tables (> 100,000 rows), prefer BCP export/import, SSIS, or bcp in/out instead of generating text scripts.'
+    ],
+    warnings: [
+      'Always test generated INSERT statements in a transaction (BEGIN TRAN ... ROLLBACK TRAN) on target environments to verify constraints and foreign keys.'
+    ],
+    columnsReturned: [
+      { name: 'Insert_Scripts', description: 'Dynamically generated SQL INSERT INTO statement containing literal column data and values.' }
+    ],
+    relatedQueryIds: ['generate-insert-template', 'find-tables-with-column']
   }
 ];
 
