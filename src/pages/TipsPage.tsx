@@ -93,7 +93,7 @@ export const TipsPage: React.FC = () => {
                 {tip.title}
               </h2>
               <div className="flex items-center space-x-2">
-                <span className="text-[11px] font-semibold text-amber-900 dark:text-amber-400 bg-amber-100/80 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-500/20 px-2 py-0.5 rounded">
+                <span className="text-[11px] font-bold text-amber-950 dark:text-amber-300 bg-amber-100 dark:bg-amber-950/50 border border-amber-300 dark:border-amber-500/30 px-2 py-0.5 rounded shadow-2xs">
                   {tip.category}
                 </span>
               </div>
@@ -102,21 +102,21 @@ export const TipsPage: React.FC = () => {
             {/* Problem & Why */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
               <div className="p-4 rounded-xl border border-rose-200 dark:border-rose-500/20 bg-rose-50/70 dark:bg-rose-950/15 space-y-1.5 shadow-xs">
-                <div className="flex items-center space-x-1.5 font-bold uppercase tracking-wider text-rose-700 dark:text-rose-400">
-                  <XCircle className="w-4 h-4 text-rose-600" />
+                <div className="flex items-center space-x-1.5 font-bold uppercase tracking-wider text-rose-900 dark:text-rose-300">
+                  <XCircle className="w-4 h-4 text-rose-600 dark:text-rose-400" />
                   <span>The Problem</span>
                 </div>
-                <p className="text-slate-700 dark:text-slate-300 leading-relaxed">
+                <p className="text-slate-800 dark:text-slate-200 leading-relaxed">
                   {tip.problem}
                 </p>
               </div>
 
-              <div className="p-4 rounded-xl border border-amber-200 dark:border-amber-500/20 bg-amber-50/70 dark:bg-amber-950/15 space-y-1.5 shadow-xs">
-                <div className="flex items-center space-x-1.5 font-bold uppercase tracking-wider text-amber-800 dark:text-amber-400">
-                  <Lightbulb className="w-4 h-4 text-amber-600" />
+              <div className="p-4 rounded-xl border border-amber-300/80 dark:border-amber-500/20 bg-amber-50/60 dark:bg-amber-950/15 space-y-1.5 shadow-xs">
+                <div className="flex items-center space-x-1.5 font-bold uppercase tracking-wider text-amber-950 dark:text-amber-300">
+                  <Lightbulb className="w-4 h-4 text-amber-600 dark:text-amber-400" />
                   <span>Why It Matters</span>
                 </div>
-                <p className="text-slate-700 dark:text-slate-300 leading-relaxed">
+                <p className="text-slate-800 dark:text-slate-200 leading-relaxed">
                   {tip.why}
                 </p>
               </div>
@@ -124,11 +124,11 @@ export const TipsPage: React.FC = () => {
 
             {/* Better Approach */}
             <div className="p-4 rounded-xl border border-emerald-200 dark:border-emerald-500/20 bg-emerald-50/70 dark:bg-emerald-950/15 space-y-1.5 text-xs shadow-xs">
-              <div className="flex items-center space-x-1.5 font-bold uppercase tracking-wider text-emerald-800 dark:text-emerald-400">
-                <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+              <div className="flex items-center space-x-1.5 font-bold uppercase tracking-wider text-emerald-900 dark:text-emerald-300">
+                <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
                 <span>Recommended Solution</span>
               </div>
-              <p className="text-slate-700 dark:text-slate-200 leading-relaxed">
+              <p className="text-slate-800 dark:text-slate-200 leading-relaxed">
                 {tip.betterApproach}
               </p>
             </div>

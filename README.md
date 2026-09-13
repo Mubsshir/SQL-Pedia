@@ -8,7 +8,7 @@
 ## ⚡ Core Developer Experience
 
 ```text
-Ctrl + K  →  Instant search across 84+ queries, guidelines, partitions, DMVs
+Ctrl + K  →  Instant search across 90+ queries, guidelines, partitions, DMVs
 Header    →  Jump to DB Guidelines, Boilerplate SPs, SQL Compare, JSON Formatter
 Sidebar   →  Switch between categories, tools, standards, and checklists
 ```
@@ -26,7 +26,7 @@ Sidebar   →  Switch between categories, tools, standards, and checklists
   * **Staging Bulk Merge (`usp_stg_*`)**: Deduplication CTE with `ROW_NUMBER()` and batch upsert.
 * **SQL Code Compare & Diff Analyzer**: Side-by-side and unified diff views comparing two SQL scripts, highlighting additions (`+`), removals (`-`), similarity percentages, and whitespace handling.
 * **JSON Formatter & T-SQL `OPENJSON` Generator**: Beautify (2/4 spaces), minify, real-time syntax validator, and automatic generation of SQL Server `OPENJSON(...) WITH (...)` queries for smart meter payloads (MDMS/HES).
-* **84+ Production-Tested Queries**: Performance & DMVs, Table Partitioning, Stored Procedures, SQL Server Agent, Tables & Schema DDL, Data Operations (DML), Developer Utilities, Database Administration, Troubleshooting, and Best Practices.
+* **90+ Production-Tested Queries**: Performance & DMVs, Table Partitioning, Stored Procedures, SQL Server Agent, Tables & Schema DDL, Data Operations (DML), Developer Utilities, Database Administration, Troubleshooting, and Best Practices.
 
 ---
 
@@ -63,13 +63,14 @@ src/
 │   ├── searchEngine.ts          # Weighted multi-field search engine
 │   └── dateUtils.ts             # Relative time formatting
 ├── hooks/
+│   ├── useHashRouter.ts         # Client-side hash router for deep-linking & history
 │   ├── useFavorites.ts          # LocalStorage-backed starred queries
 │   ├── useRecentlyViewed.ts     # LocalStorage-backed recent query tracker
 │   ├── useChecklist.ts          # LocalStorage-backed PR checklist state
 │   └── useKeyboardShortcuts.ts  # Global listener for Ctrl+K, Esc, ?
 ├── data/
 │   ├── categories.ts            # Category metadata and icons
-│   ├── queries/                 # 84 modular production T-SQL snippets
+│   ├── queries/                 # 90 modular production T-SQL snippets
 │   │   ├── performance.ts
 │   │   ├── partitioning.ts
 │   │   ├── storedProcedures.ts
@@ -83,7 +84,8 @@ src/
 │   ├── queriesIndex.ts          # Central index and query lookup functions
 │   ├── tips.ts                  # Problem → Why → Solution → Examples
 │   ├── standards.ts             # Team naming and transaction rules
-│   └── checklist.ts             # Pre-deployment review items
+│   ├── checklist.ts             # Pre-deployment review items
+│   └── sqlKnowledge.ts          # Query statuses (Running, Suspended), SQLOS & waits
 ├── components/
 │   ├── CodeBlock.tsx            # SQL editor code display with syntax highlighting
 │   ├── SearchModal.tsx          # Ctrl+K modal with arrow key navigation
@@ -102,7 +104,8 @@ src/
     ├── PlaygroundPage.tsx       # Client-side SQL formatter and scratchpad
     ├── TipsPage.tsx             # 💡 Developer Tips deck
     ├── StandardsPage.tsx        # Team coding standards reference
-    └── ChecklistPage.tsx        # Interactive code review checklist
+    ├── ChecklistPage.tsx        # Interactive code review checklist
+    └── SqlKnowledgePage.tsx     # 🎓 Query Statuses, SQLOS Lifecycle & Waits Reference
 ```
 
 ---

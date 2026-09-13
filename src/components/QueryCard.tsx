@@ -37,21 +37,21 @@ export const QueryCard: React.FC<QueryCardProps> = ({
     switch (risk) {
       case 'safe':
         return (
-          <span className="inline-flex items-center space-x-1 text-[11px] font-medium text-emerald-800 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-500/20 px-2 py-0.5 rounded">
+          <span className="inline-flex items-center space-x-1 text-[11px] font-semibold text-emerald-950 dark:text-emerald-300 bg-emerald-100/80 dark:bg-emerald-950/40 border border-emerald-300 dark:border-emerald-500/20 px-2 py-0.5 rounded">
             <ShieldCheck className="w-3 h-3 text-emerald-600 dark:text-emerald-400" />
             <span>Safe</span>
           </span>
         );
       case 'caution':
         return (
-          <span className="inline-flex items-center space-x-1 text-[11px] font-medium text-amber-800 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-500/20 px-2 py-0.5 rounded">
+          <span className="inline-flex items-center space-x-1 text-[11px] font-semibold text-amber-950 dark:text-amber-300 bg-amber-100/90 dark:bg-amber-950/40 border border-amber-300 dark:border-amber-500/20 px-2 py-0.5 rounded">
             <AlertTriangle className="w-3 h-3 text-amber-600 dark:text-amber-400" />
             <span>Caution</span>
           </span>
         );
       case 'destructive':
         return (
-          <span className="inline-flex items-center space-x-1 text-[11px] font-medium text-rose-800 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-500/30 px-2 py-0.5 rounded">
+          <span className="inline-flex items-center space-x-1 text-[11px] font-semibold text-rose-950 dark:text-rose-300 bg-rose-100/80 dark:bg-rose-950/40 border border-rose-300 dark:border-rose-500/30 px-2 py-0.5 rounded">
             <AlertOctagon className="w-3 h-3 text-rose-600 dark:text-rose-400" />
             <span>Destructive</span>
           </span>

@@ -46,6 +46,8 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
   // Quick Action cards definition
   const quickActions = [
     { id: 'guidelines', title: '📋 DB Guidelines', icon: '📋', desc: '17 SP rules, table naming & deploy', isView: true },
+    { id: 'meter-journey', title: '⚡ Meter Journey (3D KT)', icon: '⚡', desc: 'Step-by-step 3D walkthrough of MDMS', isView: true },
+    { id: 'knowledge', title: '🎓 SQL Knowledge', icon: '🎓', desc: 'Running, Suspended, Waits & Internals', isView: true },
     { id: 'boilerplate-sp', title: '📜 Boilerplate SPs', icon: '📜', desc: 'Report & Import SPs with error logging', isView: true },
     { id: 'sql-compare', title: '⚖️ SQL Compare', icon: '⚖️', desc: 'Side-by-side script diff & regression', isView: true },
     { id: 'json-formatter', title: '🔧 JSON Formatter', icon: '🔧', desc: 'Beautify, validate & OPENJSON query', isView: true },

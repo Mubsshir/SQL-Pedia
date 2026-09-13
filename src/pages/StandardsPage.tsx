@@ -52,8 +52,8 @@ export const StandardsPage: React.FC = () => {
                   {/* Examples */}
                   <div className="space-y-2 pt-1 text-xs font-mono">
                     {rule.example && (
-                      <div className="p-2.5 rounded-lg bg-emerald-50/80 dark:bg-emerald-950/20 border border-emerald-200 dark:border-emerald-500/20 text-emerald-800 dark:text-emerald-300 text-[11px] leading-relaxed break-all">
-                        <span className="text-emerald-800 dark:text-emerald-400 font-bold uppercase tracking-wider text-[9px] block mb-1">
+                      <div className="p-2.5 rounded-lg bg-emerald-50/80 dark:bg-emerald-950/20 border border-emerald-200 dark:border-emerald-500/20 text-emerald-900 dark:text-emerald-300 text-[11px] leading-relaxed break-all">
+                        <span className="text-emerald-900 dark:text-emerald-400 font-bold uppercase tracking-wider text-[9px] block mb-1">
                           Standard Example:
                         </span>
                         {rule.example}
@@ -61,8 +61,8 @@ export const StandardsPage: React.FC = () => {
                     )}
 
                     {rule.badExample && (
-                      <div className="p-2.5 rounded-lg bg-rose-50/80 dark:bg-rose-950/20 border border-rose-200 dark:border-rose-500/20 text-rose-800 dark:text-rose-300 text-[11px] leading-relaxed break-all">
-                        <span className="text-rose-700 dark:text-rose-400 font-bold uppercase tracking-wider text-[9px] block mb-1">
+                      <div className="p-2.5 rounded-lg bg-rose-50/80 dark:bg-rose-950/20 border border-rose-200 dark:border-rose-500/20 text-rose-900 dark:text-rose-300 text-[11px] leading-relaxed break-all">
+                        <span className="text-rose-900 dark:text-rose-400 font-bold uppercase tracking-wider text-[9px] block mb-1">
                           Never Use:
                         </span>
                         {rule.badExample}

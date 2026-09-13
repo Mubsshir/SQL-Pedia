@@ -80,9 +80,9 @@ export const QueryDetailPage: React.FC<QueryDetailPageProps> = ({
 
         <button
           onClick={() => onToggleFavorite(query.id)}
-          className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors shadow-xs ${
+          className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold border transition-colors shadow-xs ${
             isFavorite
-              ? 'bg-amber-100 text-amber-900 border-amber-300 dark:bg-amber-500/20 dark:text-amber-300 dark:border-amber-500/30'
+              ? 'bg-amber-50 text-slate-900 border-amber-300 dark:bg-amber-500/20 dark:text-amber-300 dark:border-amber-500/30'
               : 'bg-white hover:bg-slate-50 text-slate-700 border-slate-200 dark:bg-slate-800/80 dark:hover:bg-slate-700 dark:text-slate-300 dark:border-slate-700'
           }`}
         >

@@ -1,10 +1,10 @@
 export type RiskLevel = 'safe' | 'caution' | 'destructive';
 
-export type SqlServerVersion = 
-  | '2016+' 
-  | '2019+' 
-  | '2022+' 
-  | '2025+' 
+export type SqlServerVersion =
+  | '2016+'
+  | '2019+'
+  | '2022+'
+  | '2025+'
   | 'Version dependent';
 
 export type DifficultyLevel = 'Beginner' | 'Intermediate' | 'Advanced';

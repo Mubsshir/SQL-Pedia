@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { QuerySnippet, QueryCategory } from './types';
 import { Header } from './components/Header';
 import { Sidebar } from './components/Sidebar';
@@ -17,17 +17,30 @@ import { GuidelinesPage } from './pages/GuidelinesPage';
 import { BoilerplateSpPage } from './pages/BoilerplateSpPage';
 import { SqlComparePage } from './pages/SqlComparePage';
 import { JsonFormatterPage } from './pages/JsonFormatterPage';
+import { SqlKnowledgePage } from './pages/SqlKnowledgePage';
+import { MeterJourneyKtPage } from './pages/MeterJourneyKtPage';
 import { BugReportModal } from './components/BugReportModal';
 import { Bug } from 'lucide-react';
 import { useFavorites } from './hooks/useFavorites';
 import { useRecentlyViewed } from './hooks/useRecentlyViewed';
 import { useChecklist } from './hooks/useChecklist';
 import { useKeyboardShortcuts } from './hooks/useKeyboardShortcuts';
+import { useHashRouter } from './hooks/useHashRouter';
+import { getQueryById } from './data/queriesIndex';
 
 export function App() {
-  const [currentView, setCurrentView] = useState<string>('dashboard');
-  const [selectedCategory, setSelectedCategory] = useState<QueryCategory | undefined>(undefined);
-  const [selectedQuery, setSelectedQuery] = useState<QuerySnippet | null>(null);
+  // Client-side URL Hash Router: enables deep-linking, back/forward history & refresh retention
+  const { route, navigateQuery, navigateCategory, navigateView } = useHashRouter();
+
+  const currentView = route.view;
+  const selectedCategory = route.category;
+
+  const activeQuery: QuerySnippet | null = useMemo(() => {
+    if (route.view === 'query' && route.queryId) {
+      return getQueryById(route.queryId) || null;
+    }
+    return null;
+  }, [route.view, route.queryId]);
 
   // Theme state: defaults to 'light' (Green & White theme), with toggle to 'dark' (Emerald Dark)
   const [theme, setTheme] = useState<'light' | 'dark'>(() => {
@@ -68,27 +81,28 @@ export function App() {
     onOpenShortcuts: () => setIsShortcutsOpen(true),
   });
 
-  const handleSelectQuery = (query: QuerySnippet) => {
-    setSelectedQuery(query);
-    setCurrentView('query');
-    addRecent(query.id);
+  // Automatically record recently viewed queries when navigating
+  useEffect(() => {
+    if (activeQuery) {
+      addRecent(activeQuery.id);
+    }
+  }, [activeQuery?.id]);
+
+  // Smooth scroll to top on route changes
+  useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [route.view, route.queryId, route.category]);
+
+  const handleSelectQuery = (query: QuerySnippet) => {
+    navigateQuery(query.id);
   };
 
   const handleSelectCategory = (categoryName: string) => {
-    setSelectedCategory(categoryName as QueryCategory);
-    setCurrentView('category');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    navigateCategory(categoryName);
   };
 
   const handleSelectView = (view: string, category?: QueryCategory) => {
-    if (view === 'category' && category) {
-      setSelectedCategory(category);
-    } else {
-      setSelectedCategory(undefined);
-    }
-    setCurrentView(view);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    navigateView(view, category);
   };
 
   const renderCurrentView = () => {
@@ -123,30 +137,39 @@ export function App() {
           />
         );
       case 'query':
-        if (!selectedQuery) {
+        if (!activeQuery) {
           return (
-            <DashboardPage
-              onSelectQuery={handleSelectQuery}
-              onSelectCategory={handleSelectCategory}
-              onNavigate={handleSelectView}
-              favorites={favorites}
-              onToggleFavorite={toggleFavorite}
-              recentItems={recent}
-            />
+            <div className="rounded-2xl border border-slate-200 dark:border-sql-border bg-white dark:bg-sql-card p-12 text-center max-w-xl mx-auto space-y-4 shadow-sm my-12">
+              <div className="w-12 h-12 mx-auto rounded-full bg-amber-100 dark:bg-amber-950/50 flex items-center justify-center text-amber-600 dark:text-amber-400">
+                <Bug className="w-6 h-6" />
+              </div>
+              <h2 className="text-xl font-bold text-slate-900 dark:text-white">Query Not Found</h2>
+              <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                The requested query could not be located in our catalog. It may have been renamed or moved.
+              </p>
+              <button
+                onClick={() => handleSelectView('browse')}
+                className="inline-flex items-center space-x-1.5 px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold shadow-xs transition-colors"
+              >
+                <span>Browse All Queries</span>
+              </button>
+            </div>
           );
         }
         return (
           <QueryDetailPage
-            query={selectedQuery}
+            query={activeQuery}
             onBack={() => {
-              if (selectedCategory) {
-                setCurrentView('category');
+              if (window.history.length > 1) {
+                window.history.back();
+              } else if (selectedCategory) {
+                handleSelectCategory(selectedCategory);
               } else {
-                setCurrentView('browse');
+                handleSelectView('browse');
               }
             }}
             onSelectQuery={handleSelectQuery}
-            isFavorite={isFavorite(selectedQuery.id)}
+            isFavorite={isFavorite(activeQuery.id)}
             onToggleFavorite={toggleFavorite}
           />
         );
@@ -192,6 +215,12 @@ export function App() {
         return <SqlComparePage />;
       case 'json-formatter':
         return <JsonFormatterPage />;
+      case 'knowledge':
+      case 'sql-knowledge':
+        return <SqlKnowledgePage />;
+      case 'meter-journey':
+      case 'kt':
+        return <MeterJourneyKtPage />;
       default:
         return (
           <DashboardPage

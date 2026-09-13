@@ -137,15 +137,15 @@ export const Header: React.FC<HeaderProps> = ({
           onClick={() => onNavigate('favorites')}
           className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
             currentView === 'favorites'
-              ? 'bg-amber-100 text-amber-900 border border-amber-300 dark:bg-amber-500/20 dark:text-amber-300 dark:border-amber-500/30'
+              ? 'bg-amber-50 text-slate-900 border border-amber-300 shadow-xs dark:bg-amber-500/20 dark:text-amber-300 dark:border-amber-500/30'
               : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 hover:bg-slate-100 dark:hover:text-white dark:hover:bg-slate-800/80 border border-transparent'
           }`}
           title="My Favorite Queries"
         >
-          <Star className="w-3.5 h-3.5 text-amber-500 fill-amber-500/30" />
+          <Star className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
           <span className="hidden sm:inline">Favorites</span>
           {favoritesCount > 0 && (
-            <span className="text-[10px] bg-amber-200 text-amber-900 dark:bg-amber-400/20 dark:text-amber-300 px-1.5 py-0.2 rounded-full font-mono font-bold">
+            <span className="text-[10px] bg-amber-500 text-white dark:bg-amber-400/20 dark:text-amber-300 px-1.5 py-0.2 rounded-full font-mono font-bold shadow-xs">
               {favoritesCount}
             </span>
           )}

@@ -193,9 +193,9 @@ export const GuidelinesPage: React.FC = () => {
             </div>
 
             <div className="p-4 rounded-xl border border-amber-300 dark:border-amber-500/30 bg-amber-50/60 dark:bg-amber-950/20 text-center">
-              <span className="text-2xl font-black text-amber-700 dark:text-amber-400 font-mono block">T_</span>
+              <span className="text-2xl font-black text-amber-900 dark:text-amber-400 font-mono block">T_</span>
               <span className="text-xs font-bold text-slate-800 dark:text-slate-200 block">Transaction Tables</span>
-              <span className="text-[10px] text-slate-500">T_Consumer_Billing</span>
+              <span className="text-[10px] text-slate-600 dark:text-slate-400">T_Consumer_Billing</span>
             </div>
 
             <div className="p-4 rounded-xl border border-purple-300 dark:border-purple-500/30 bg-purple-50/60 dark:bg-purple-950/20 text-center">

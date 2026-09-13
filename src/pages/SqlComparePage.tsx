@@ -434,9 +434,9 @@ Lines Unchanged: ${stats.unchanged}`;
                   if (line.type === 'insert') {
                     // Empty space on the left when an insertion occurred on the right
                     return (
-                      <div key={idx} className="flex bg-slate-50/40 dark:bg-slate-900/20 px-3 py-1 text-slate-300 select-none">
-                        <span className="w-8 shrink-0 text-slate-300 dark:text-slate-700 text-right pr-2">·</span>
-                        <span className="italic text-[10px] text-slate-400/50">(blank)</span>
+                      <div key={idx} className="flex bg-slate-50/70 dark:bg-slate-900/30 px-3 py-1 text-slate-400 dark:text-slate-500 select-none">
+                        <span className="w-8 shrink-0 text-slate-400 dark:text-slate-600 text-right pr-2">·</span>
+                        <span className="italic text-[10px] text-slate-400 dark:text-slate-500">(blank)</span>
                       </div>
                     );
                   }
@@ -470,9 +470,9 @@ Lines Unchanged: ${stats.unchanged}`;
                   if (line.type === 'delete') {
                     // Empty space on right when a deletion occurred on left
                     return (
-                      <div key={idx} className="flex bg-slate-50/40 dark:bg-slate-900/20 px-3 py-1 text-slate-300 select-none">
-                        <span className="w-8 shrink-0 text-slate-300 dark:text-slate-700 text-right pr-2">·</span>
-                        <span className="italic text-[10px] text-slate-400/50">(blank)</span>
+                      <div key={idx} className="flex bg-slate-50/70 dark:bg-slate-900/30 px-3 py-1 text-slate-400 dark:text-slate-500 select-none">
+                        <span className="w-8 shrink-0 text-slate-400 dark:text-slate-600 text-right pr-2">·</span>
+                        <span className="italic text-[10px] text-slate-400 dark:text-slate-500">(blank)</span>
                       </div>
                     );
                   }

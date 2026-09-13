@@ -20,6 +20,8 @@ import {
   FileCode2,
   GitCompare,
   FileJson,
+  GraduationCap,
+  Sparkles,
   X 
 } from 'lucide-react';
 import { QueryCategory } from '../types';
@@ -166,16 +168,16 @@ export const Sidebar: React.FC<SidebarProps> = ({
               }}
               className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold transition-colors ${
                 currentView === 'favorites'
-                  ? 'bg-amber-100 text-amber-900 border border-amber-300 dark:bg-amber-500/20 dark:text-amber-300 dark:border-amber-500/30'
+                  ? 'bg-amber-50 text-slate-900 border border-amber-300 shadow-xs dark:bg-amber-500/20 dark:text-amber-300 dark:border-amber-500/30'
                   : 'text-slate-700 hover:text-slate-900 hover:bg-emerald-50/60 dark:text-slate-300 dark:hover:text-white dark:hover:bg-slate-800/60'
               }`}
             >
               <div className="flex items-center space-x-2.5">
-                <Star className="w-4 h-4 text-amber-500 fill-amber-500/30" />
+                <Star className="w-4 h-4 text-amber-500 fill-amber-500" />
                 <span>My Favorites</span>
               </div>
               {favoritesCount > 0 && (
-                <span className="text-[10px] font-mono font-bold text-amber-900 bg-amber-200 dark:text-amber-300 dark:bg-amber-400/20 px-1.5 py-0.5 rounded">
+                <span className="text-[10px] font-mono font-bold text-white bg-amber-600 dark:text-amber-300 dark:bg-amber-400/20 px-1.5 py-0.5 rounded shadow-xs">
                   {favoritesCount}
                 </span>
               )}
@@ -310,6 +312,36 @@ export const Sidebar: React.FC<SidebarProps> = ({
             <div className="px-3 text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">
               Team Knowledge
             </div>
+
+            <button
+              onClick={() => {
+                onSelectView('meter-journey');
+                onCloseMobile();
+              }}
+              className={`w-full flex items-center space-x-2.5 px-3 py-2 rounded-lg text-xs font-medium transition-colors ${
+                currentView === 'meter-journey' || currentView === 'kt'
+                  ? 'bg-emerald-50 text-emerald-800 border border-emerald-300 font-semibold dark:bg-emerald-500/20 dark:text-emerald-300 dark:border-emerald-500/30'
+                  : 'text-slate-700 hover:text-emerald-800 hover:bg-emerald-50/60 dark:text-slate-300 dark:hover:text-white dark:hover:bg-slate-800/60'
+              }`}
+            >
+              <Sparkles className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+              <span>⚡ Meter Journey in MDMS</span>
+            </button>
+
+            <button
+              onClick={() => {
+                onSelectView('knowledge');
+                onCloseMobile();
+              }}
+              className={`w-full flex items-center space-x-2.5 px-3 py-2 rounded-lg text-xs font-medium transition-colors ${
+                currentView === 'knowledge' || currentView === 'sql-knowledge'
+                  ? 'bg-emerald-50 text-emerald-800 border border-emerald-300 font-semibold dark:bg-emerald-500/20 dark:text-emerald-300 dark:border-emerald-500/30'
+                  : 'text-slate-700 hover:text-emerald-800 hover:bg-emerald-50/60 dark:text-slate-300 dark:hover:text-white dark:hover:bg-slate-800/60'
+              }`}
+            >
+              <GraduationCap className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+              <span>SQL Knowledge & Internals</span>
+            </button>
 
             <button
               onClick={() => {
